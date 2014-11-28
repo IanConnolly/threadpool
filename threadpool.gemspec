@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["ian@connolly.io"]
   spec.summary       = %q{Basic Ruby threadpool}
   spec.description   = %q{Basic Ruby threadpool}
-  spec.homepage      = "http://github.com/IanConnolly/threadpool.rb"
+  spec.homepage      = "http://github.com/IanConnolly/threadpool"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
