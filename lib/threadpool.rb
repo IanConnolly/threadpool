@@ -23,7 +23,7 @@ module Threadpool
     end
 
     def shutdown
-      @worker_threads.map(&:join)
+      @worker_threads.map(&:kill)
     end
 
     def add_task(f, *args)
