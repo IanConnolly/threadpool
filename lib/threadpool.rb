@@ -1,4 +1,4 @@
-require "threadpool/version"
+require 'threadpool/version'
 
 module Threadpool
 
@@ -11,21 +11,21 @@ module Threadpool
       @work_queue = Queue.new
       @worker_threads = (0...workers).map do
         Thread.new do
-          loop { 
+          loop do
             proc, args = @work_queue.pop
             proc.call(args)
-          }
+          end
         end
       end
     end
 
     def backlog
-      raise ShutdownError, "Threadpool already shutdown" if shutdown?
+      raise ShutdownError, 'Threadpool already shutdown' if shutdown?
       @work_queue.size
     end
 
     def size
-      raise ShutdownError, "Threadpool already shutdown" if shutdown?
+      raise ShutdownError, 'Threadpool already shutdown' if shutdown?
       @worker_threads.length
     end
 
@@ -34,16 +34,15 @@ module Threadpool
     end
 
     def shutdown!(timeout: 0.2)
-      raise ShutdownError, "Threadpool already shutdown" if shutdown?
-      @worker_threads.map { |t|  
-        t.join timeout
-      }
+      raise ShutdownError, 'Threadpool already shutdown' if shutdown?
+      @worker_threads.map { |t| t.join timeout }
       @shutdown = true
     end
 
     def add_task(f, *args)
-      raise ShutdownError, "Threadpool already shutdown" if shutdown?
+      raise ShutdownError, 'Threadpool already shutdown' if shutdown?
       @work_queue << [f, args]
     end
   end
+
 end

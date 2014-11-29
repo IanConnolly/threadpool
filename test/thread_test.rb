@@ -1,11 +1,7 @@
-require "minitest/autorun"
-
-require "threadpool"
-
+require 'minitest/autorun'
+require 'threadpool'
 
 class ThreadTest < Minitest::Unit::TestCase
-
-
   def setup
     @pool = Threadpool::Threadpool.new(workers: 4)
   end
@@ -20,13 +16,13 @@ class ThreadTest < Minitest::Unit::TestCase
     end
     a = []
     @pool.add_task(func, a, 4)
-    
-    loop {
+
+    loop do
       if @pool.backlog == 0
         assert_equal [4], a
         break
       end
-    }
+    end
   end
 
   def test_threads_multiple_args
@@ -35,13 +31,13 @@ class ThreadTest < Minitest::Unit::TestCase
     end
     a = []
     @pool.add_task(func, a, 4, 5, 6, 7, 8)
-    
-    loop {
+
+    loop do
       if @pool.backlog == 0
         assert_equal [4, 5, 6, 7, 8], a
         break
       end
-    }
+    end
   end
 
   def test_shutdown
